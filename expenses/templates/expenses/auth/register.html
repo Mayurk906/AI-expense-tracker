@@ -1,12 +1,127 @@
 {% extends "expenses/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'expenses/css/auth.css' %}">
+{% endblock %}
+
 {% block content %}
-<h2>Register</h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+<div class="row justify-content-center mt-5">
 
-    <button type="submit">Register</button>
-</form>
+    <div class="col-lg-5 col-md-7">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <h2 class="text-center mb-4">
+                    Create Account
+                </h2>
+
+                <p class="text-center text-muted mb-4">
+                    Start managing your expenses smarter.
+                </p>
+
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    {{ form.errors }}
+                </div>
+                {% endif %}
+
+                {% if form.errors %}
+
+                <div class="alert alert-danger">
+
+                    {{ form.errors }}
+
+                </div>
+
+                {% endif %}
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+                    <!-- Username -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Username
+                        </label>
+
+                        {{ form.username }}
+
+                    </div>
+
+                    <!-- Email -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        {{ form.email }}
+
+                    </div>
+
+                    <!-- Password -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        {{ form.password1 }}
+
+                    </div>
+
+                    <!-- Confirm Password -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Confirm Password
+                        </label>
+
+                        {{ form.password2 }}
+
+                    </div>
+
+                    <div class="d-grid">
+
+                        <button type="submit"
+                                class="btn btn-primary btn-lg">
+
+                            Create Account
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <hr>
+
+                <div class="text-center">
+
+                    Already have an account?
+
+                    <a href="{% url 'login' %}">
+                        Login
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

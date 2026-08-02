@@ -2,8 +2,161 @@
 
 {% block content %}
 
-<h2>Dashboard</h2>
+<h2 class="mb-4">
+    Dashboard
+</h2>
 
-<h3>Welcome {{ request.user.username }}</h3>
+<!-- Summary Cards -->
+
+<div class="row">
+
+    <!-- Total Income -->
+
+    <div class="col-md-4 mb-3">
+
+        <div class="card text-bg-success shadow">
+
+            <div class="card-body">
+
+                <h5>
+                    <i class="bi bi-cash-stack"></i>
+                    Total Income
+                </h5>
+
+                <h3>
+                    ₹ {{ total_income }}
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Total Expense -->
+
+    <div class="col-md-4 mb-3">
+
+        <div class="card text-bg-danger shadow">
+
+            <div class="card-body">
+
+                <h5>
+                    <i class="bi bi-wallet2"></i>
+                    Total Expense
+                </h5>
+
+                <h3>
+                    ₹ {{ total_expense }}
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Balance -->
+
+    <div class="col-md-4 mb-3">
+
+        <div class="card text-bg-primary shadow">
+
+            <div class="card-body">
+
+                <h5>
+                    <i class="bi bi-piggy-bank"></i>
+                    Balance
+                </h5>
+
+                <h3>
+                    ₹ {{ balance }}
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Recent Transactions -->
+
+<div class="card shadow-sm mt-4">
+
+    <div class="card-header">
+
+        <h5 class="mb-0">
+
+            Recent Transactions
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for transaction in recent_transactions %}
+
+                <tr>
+
+                    <td>
+
+                        {{ transaction.title }}
+
+                    </td>
+
+                    <td>
+
+                        {{ transaction.category.name }}
+
+                    </td>
+
+                    <td>
+
+                        ₹ {{ transaction.amount }}
+
+                    </td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+
+                    <td colspan="3" class="text-center">
+
+                        No transactions found.
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
 {% endblock %}
