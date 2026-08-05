@@ -1,0 +1,95 @@
+{% extends "expenses/base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+
+    Add Income
+
+</h2>
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Title
+
+                </label>
+
+                {{ form.title }}
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Amount
+
+                </label>
+
+                {{ form.amount }}
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Category
+
+                </label>
+
+                {{ form.category }}
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Income Date
+
+                </label>
+
+                {{ form.income_date }}
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Description
+
+                </label>
+
+                {{ form.description }}
+
+            </div>
+
+            <div class="d-grid">
+
+                <button class="btn btn-primary">
+
+                    Save Income
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

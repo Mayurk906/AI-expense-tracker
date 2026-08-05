@@ -8,7 +8,7 @@ from django.views.generic import (
     DeleteView,
 )
 
-from ..models import Expense
+from ..models import Expense,ExpenseCategory
 from ..forms.expense import ExpenseForm
 
 
@@ -19,14 +19,41 @@ class ExpenseListView(LoginRequiredMixin, ListView):
     template_name = "expenses/expense/list.html"
 
     context_object_name = "expenses"
+    paginate_by = 5
 
     def get_queryset(self):
 
-        return (
+
+        queryset = (
             Expense.objects.filter(user=self.request.user)
             .select_related("category")
             .order_by("-expense_date")
         )
+
+        search = self.request.GET.get("search")
+
+        if search:
+
+            queryset = queryset.filter(
+                title__icontains=search
+            )
+
+        category = self.request.GET.get("category")
+
+        if category:
+
+            queryset = queryset.filter(
+                category_id=category
+            )
+
+        return queryset
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+
+        context["categories"] = ExpenseCategory.objects.all()   
+
+        return context
 
 
 class ExpenseCreateView(LoginRequiredMixin, CreateView):

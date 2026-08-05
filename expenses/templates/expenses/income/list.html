@@ -4,13 +4,13 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <h2>Expenses</h2>
+    <h2>Income</h2>
 
-    <a href="{% url 'expense-add' %}" class="btn btn-primary">
+    <a href="{% url 'income-add' %}" class="btn btn-primary">
 
         <i class="bi bi-plus-circle"></i>
 
-        Add Expense
+        Add Income
 
     </a>
 
@@ -29,12 +29,11 @@
                     name="search"
                     value="{{ request.GET.search }}"
                     class="form-control"
-                    placeholder="Search expenses...">
+                    placeholder="Search income...">
 
             </div>
 
             <div class="col-md-4">
-                
 
                 <select
                     name="category"
@@ -88,7 +87,6 @@
                     <th>Category</th>
                     <th>Amount</th>
                     <th>Date</th>
-                    <th>Payment</th>
                     <th>Actions</th>
 
                 </tr>
@@ -97,46 +95,46 @@
 
             <tbody>
 
-                {% for expense in expenses %}
+                {% for income in incomes %}
 
                 <tr>
 
-                    <td>{{ expense.title }}</td>
+                    <td>{{ income.title }}</td>
 
-                    <td>{{ expense.category.name }}</td>
+                    <td>{{ income.category.name }}</td>
 
-                    <td>₹ {{ expense.amount }}</td>
+                    <td>₹ {{ income.amount }}</td>
 
-                    <td>{{ expense.expense_date }}</td>
-
-                    <td>{{ expense.get_payment_method_display }}</td>
+                    <td>{{ income.income_date }}</td>
 
                     <td>
 
-                        <a href="{% url 'expense-edit' expense.pk %}"
-                        class="btn btn-warning btn-sm">
+                        <a href="{% url 'income-edit' income.pk %}"
+                           class="btn btn-warning btn-sm">
 
                             <i class="bi bi-pencil"></i>
 
                         </a>
 
-                        <a href="{% url 'expense-delete' expense.pk %}"
-                        class="btn btn-danger btn-sm">
+                        <a href="{% url 'income-delete' income.pk %}"
+                           class="btn btn-danger btn-sm">
 
                             <i class="bi bi-trash"></i>
 
                         </a>
 
                     </td>
+
                 </tr>
 
                 {% empty %}
 
                 <tr>
 
-                    <td colspan="6" class="text-center text-muted">
+                    <td colspan="5"
+                        class="text-center text-muted">
 
-                        No expenses found.
+                        No income found.
 
                     </td>
 
@@ -157,7 +155,8 @@
                 <li class="page-item">
 
                     <a class="page-link"
-                    href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}"
+                       href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">
+
                         Previous
 
                     </a>
@@ -181,7 +180,8 @@
                 <li class="page-item">
 
                     <a class="page-link"
-                    href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}"
+                       href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">
+
                         Next
 
                     </a>
