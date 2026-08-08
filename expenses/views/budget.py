@@ -52,7 +52,11 @@ class BudgetListView(LoginRequiredMixin, ListView):
 
             budget.remaining = budget.amount - spent
 
-            budget.usage = (spent / budget.amount) * 100
+            budget.usage = (
+                (spent / budget.amount) * 100
+                if budget.amount
+                else 0
+            )
 
         return context
 class BudgetCreateView(LoginRequiredMixin, CreateView):

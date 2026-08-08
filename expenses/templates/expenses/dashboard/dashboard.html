@@ -1,3 +1,5 @@
+
+
 {% extends "expenses/base.html" %}
 
 {% block content %}
@@ -72,6 +74,62 @@
                 <h3>
                     ₹ {{ balance }}
                 </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row mt-4">
+
+    <!-- Expense Pie Chart -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    Expense by Category
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="expenseChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Monthly Trend -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    Monthly Expense Trend
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="monthlyChart"></canvas>
 
             </div>
 
@@ -159,4 +217,91 @@
 
 </div>
 
+
+ <script>
+
+const labels = [
+    {% for item in category_totals %}
+        "{{ item.category__name }}",
+    {% endfor %}
+];
+
+const amounts = [
+    {% for item in category_totals %}
+        {{ item.total }},
+    {% endfor %}
+];
+
+const ctx = document.getElementById("expenseChart");
+
+new Chart(ctx, {
+
+    type: "pie",
+
+    data: {
+
+        labels: labels,
+
+        datasets: [{
+
+            data: amounts,
+
+            borderWidth: 1
+
+        }]
+
+    }
+
+});
+
+</script>
+
+<script>
+
+const monthLabels = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+];
+
+const monthlyLabels = [
+    {% for item in monthly_expenses %}
+        monthLabels[{{ item.month }} - 1],
+    {% endfor %}
+];
+
+const monthlyAmounts = [
+    {% for item in monthly_expenses %}
+        {{ item.total }},
+    {% endfor %}
+];
+
+const monthlyCtx = document.getElementById("monthlyChart");
+
+new Chart(monthlyCtx, {
+
+    type: "line",
+
+    data: {
+
+        labels: monthlyLabels,
+
+        datasets: [{
+
+            label: "Expenses",
+
+            data: monthlyAmounts,
+
+            fill: false,
+
+            tension: 0.3
+
+        }]
+
+    }
+
+});
+
+</script>
+
+    
 {% endblock %}
